@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class NodeEditorJsonComponent {
   @Input() node: any;
+  @Input() readonly: boolean = false;
 }

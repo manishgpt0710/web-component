@@ -10,4 +10,6 @@ export class NodeRendererComponent {
   @Output() newSubItem: any;
   @Output() open: any;
   @Output() remove: any;
+
+  toggle() {}
 }

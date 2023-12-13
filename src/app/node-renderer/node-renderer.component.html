@@ -1,9 +1,9 @@
 <div uiTreeHandle class="tree-node tree-node-content">
     <a class="btn btn-success btn-xs" *ngIf="node.nodes && node.nodes.length > 0" data-nodrag (click)="toggle()">
-    <span class="glyphicon" [ngClass]="{
+    <!-- <span class="glyphicon" [ngClass]="{
         'glyphicon-chevron-right': collapsed,
         'glyphicon-chevron-down': !collapsed
-        }"></span>
+        }"></span> -->
     </a>
     <span>{{node.name}}</span>
     <a class="pull-right btn btn-danger btn-xs" data-nodrag (click)="remove()">
@@ -27,7 +27,7 @@
     <gunslinger-node-editor [node]="node"></gunslinger-node-editor>
 </div>
 
-<ol ui-tree-nodes [ngClass]="hide">
+<ol ui-tree-nodes>  <!-- [ngClass]="hide"> -->
     <li *ngFor="let node of node.nodes" ui-tree-node>
         <gunslinger-node-renderer [node]="node"></gunslinger-node-renderer>
     </li>

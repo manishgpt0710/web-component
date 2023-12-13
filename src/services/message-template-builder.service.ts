@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MessageTemplateBuilderService {
   public templates = new Map<string, Template>();
 

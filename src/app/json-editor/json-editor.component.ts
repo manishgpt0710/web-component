@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { JsonTemplateBuilderService } from '../../services/json-template-builder.service';
 
 @Component({
   selector: 'gunslinger-json-editor',
@@ -10,9 +11,10 @@ export class JsonEditorComponent implements OnInit {
   @Input() template: any;
   @Input() readonly: boolean = false;
   // @Input() nodeRenderer: TemplateRef<HTMLElement>;
-  constructor() { }
+  constructor(private jsonTemplateBuilder: JsonTemplateBuilderService) { }
 
   ngOnInit(): void {
+    this.jsonTemplateBuilder.init();
   }
   remove(scope: any) {
     scope.remove();
