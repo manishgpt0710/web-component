@@ -1,0 +1,34 @@
+<div uiTreeHandle class="tree-node tree-node-content">
+    <a class="btn btn-success btn-xs" *ngIf="node.nodes && node.nodes.length > 0" data-nodrag (click)="toggle()">
+    <span class="glyphicon" [ngClass]="{
+        'glyphicon-chevron-right': collapsed,
+        'glyphicon-chevron-down': !collapsed
+        }"></span>
+    </a>
+    <span>{{node.name}}</span>
+    <a class="pull-right btn btn-danger btn-xs" data-nodrag (click)="remove()">
+    <span class="glyphicon glyphicon-remove"></span>
+    </a>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag (click)="newSubItem()" style="margin-right: 8px;">
+    <span class="glyphicon glyphicon-plus"></span>
+    </a>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag (click)="open()" style="margin-right: 8px;">
+    <span class="glyphicon" [ngClass]="{
+        'glyphicon-menu-up': node.editing,
+        'glyphicon-edit': !node.editing
+        }"></span>
+    </a>
+</div>
+
+<div *ngIf="node.editing" data-nodrag class="tree-node-detail tree-node-content">
+    <!-- <div ng-include="'./nodeEditorJSON.html'"></div>
+    <div ng-include="'./nodeEditor.html'"></div> -->
+    <gunslinger-node-editor-json [node]="node"></gunslinger-node-editor-json>
+    <gunslinger-node-editor [node]="node"></gunslinger-node-editor>
+</div>
+
+<ol ui-tree-nodes [ngClass]="hide">
+    <li *ngFor="let node of node.nodes" ui-tree-node>
+        <gunslinger-node-renderer [node]="node"></gunslinger-node-renderer>
+    </li>
+</ol>

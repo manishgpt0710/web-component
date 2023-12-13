@@ -1,0 +1,94 @@
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div uiTreeHandle class="tree-node tree-node-content">
+        <!-- <a class="btn btn-success btn-xs" *ngIf="node.nodes && node.nodes.length > 0" data-nodrag (click)="toggle(this)">
+          <span class="glyphicon" [ngClass]="{
+            'glyphicon-chevron-right': collapsed,
+            'glyphicon-chevron-down': !collapsed
+          }"></span>
+        </a> -->
+        <span>{{node.name}}</span>
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag (click)="remove(this)">
+          <span class="glyphicon glyphicon-remove"></span>
+        </a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag (click)="newSubItem(this)" style="margin-right: 8px;">
+          <span class="glyphicon glyphicon-plus"></span>
+        </a>
+        <!-- <a class="pull-right btn btn-primary btn-xs" data-nodrag (click)="open(this)" style="margin-right: 8px;">
+          <span class="glyphicon" [ngClass]="{
+            'glyphicon-menu-up': node.editing,
+            'glyphicon-edit': !node.editing
+          }"></span>
+        </a> -->
+      </div>
+
+      <!-- <div [ngModel]="node" *ngIf="node.editing" data-nodrag class="tree-node-detail tree-node-content">
+        <div ng-include="'./nodeEditorJSON.html'"></div>
+        <div ng-include="'./nodeEditor.html'"></div>
+      </div> -->
+
+      <ol ui-tree-nodes [ngModel]="node.nodes" *ngIf="node.nodes">
+        <!-- <li *ngFor="let node of node.nodes" ui-tree-node ng-include="'nodes_renderer.html'"></li> -->
+        <li *ngFor="let node of node.nodes" ui-tree-node>
+          <gunslinger-node-renderer [node]="node" (newSubItem)="newSubItem" (open)="open" (remove)="remove"></gunslinger-node-renderer>
+        </li>
+      </ol>
+  </script>
+
+  <div class="container-fluid applink-box">
+    <h3>{{template.outputTypeName}} Configuration</h3>
+    <label class="control-label">Create a List of Candidates</label>
+    <!-- <select [disabled]="readonly" class="form-control" [required]="!readonly"
+      [(ngModel)]="template.outputType.definition.isList">
+      <option *ngFor="let o of [{ n: 'No', v: false }, { n: 'Yes', v: true }]" [value]="o.v">{{o.n}}</option>
+    </select> -->
+    <br />
+
+    <label class="control-label">Json Structure</label>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div ui-tree id="tree-root">
+          <ol ui-tree-nodes [ngModel]="template.outputType.definition.nodes">
+            <li *ngFor="let node of template.outputType.definition.nodes">
+              <ng-container *ngTemplateOutlet="nodeRenderer; context: node" ui-tree-node></ng-container>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #nodeRenderer let-node>
+    <div uiTreeHandle class="tree-node tree-node-content">
+      <!-- <a class="btn btn-success btn-xs" *ngIf="node.nodes && node.nodes.length > 0" data-nodrag (click)="toggle()">
+        <span class="glyphicon" [ngClass]="{
+            'glyphicon-chevron-right': collapsed,
+            'glyphicon-chevron-down': !collapsed
+          }"></span>
+      </a> -->
+      <span>{{node.name}}</span>
+      <a class="pull-right btn btn-danger btn-xs" data-nodrag (click)="remove($event)">
+        <span class="glyphicon glyphicon-remove"></span>
+      </a>
+      <a class="pull-right btn btn-primary btn-xs" data-nodrag (click)="newSubItem($event)" style="margin-right: 8px;">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+      <!-- <a class="pull-right btn btn-primary btn-xs" data-nodrag (click)="open($event)" style="margin-right: 8px;">
+        <span class="glyphicon" [ngClass]="{
+            'glyphicon-menu-up': node.editing,
+            'glyphicon-edit': !node.editing
+          }"></span>
+      </a> -->
+    </div>
+
+    <!-- <div [ngModel]="node" *ngIf="node.editing" data-nodrag class="tree-node-detail tree-node-content">
+      <div ng-include="'./nodeEditorJSON.html'"></div>
+      <div ng-include="'./nodeEditor.html'"></div>
+    </div> -->
+
+    <ol ui-tree-nodes *ngIf="node">
+      <li *ngFor="let node of node.nodes" ui-tree-node>
+        <gunslinger-node-renderer [node]="node"></gunslinger-node-renderer>
+      </li>
+    </ol>
+  </ng-template>

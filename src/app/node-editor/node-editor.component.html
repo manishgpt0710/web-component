@@ -1,0 +1,36 @@
+<div class="input-group">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default">Node Name</button>
+    </div>
+    <input type="text" class="form-control" aria-label="..." [(ngModel)]="node.name" />
+  </div>
+  <gunslinger-source-field-picker use-defaults="true" [field]="node"></gunslinger-source-field-picker>
+  <div class="input-group" *ngIf="node.objectName !== undefined && node.objectName !== 'Constant'">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default">Default Value</button>
+    </div>
+    <input type="text" class="form-control" aria-label="..." [(ngModel)]="node.defaultValue"
+      *ngIf="node.objectName!==undefined" placeholder="Set a default value if the field source is empty." />
+  </div>
+
+  <div class="input-group" *ngIf="node.objectName !== undefined && node.objectName !== 'Constant'">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default">Data Type</button>
+    </div>
+    <select class="form-control" [(ngModel)]="node.type" *ngIf="node.objectName!==undefined">
+      <option value="number">Number</option>
+      <option value="string">String</option>
+      <option value="boolean">Boolean</option>
+      <option value="date|D/M/YYYY h:mm:ss A">Date D/M/YYYY h:mm:ss A</option>
+    </select>
+  </div>
+
+  <div class="input-group" *ngIf="node.objectName !== undefined && node.objectName !== 'Constant'">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default">Is Required</button>
+    </div>
+    <select class="form-control" [(ngModel)]="node.isRequired" *ngIf="node.objectName!==undefined">
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+</div>

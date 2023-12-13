@@ -1,0 +1,32 @@
+<section>
+  <div class="container-fluid applink-box" *ngIf="!readonly">
+    <h3>Output File Content</h3>
+    <div class="form-group" data-ng-class="{ 'has-error': form.template.$invalid && invalidFields }">
+      <label class="control-label">Output Type</label>
+      <select [disabled]="readonly" (click)="getOutputType()" class="form-control" [required]="!readonly"
+        [(ngModel)]="template.outputTypeName" name="outputType">
+        <option *ngFor="let option of template.outputTypeOptions" [value]="option.name">{{ option.name }}</option>
+      </select>
+      <!-- <span class="help-block" *ngIf="form.outputType.$error.required && invalidFields">
+        Required field is empty.
+      </span> -->
+      <!-- {{template.outputType.url}} -->
+      <!-- <ng-template src="template.outputType.url"></ng-template> -->
+      <div [ngSwitch]="template.outputType.url">
+        {{template.outputType.url}}
+        <!-- <div *ngSwitchCase="'csvEditor.html'">
+          <gunslinger-csv-editor [template]="template"></gunslinger-csv-editor>
+        </div> -->
+        <div *ngSwitchCase="'jsonEditor.html'">
+          <gunslinger-json-editor [template]="template"></gunslinger-json-editor>
+        </div>
+        <!-- <div *ngSwitchCase="'xmlEditor.html'">
+          <gunslinger-xml-editor [template]="template"></gunslinger-xml-editor>
+        </div> -->
+        <div *ngSwitchDefault>
+          <gunslinger-json-editor [template]="template"></gunslinger-json-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

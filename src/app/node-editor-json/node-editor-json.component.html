@@ -1,0 +1,9 @@
+<div class="input-group">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default">Render As</button>
+    </div>
+    <select [disabled]="readonly" [(ngModel)]="node.renderAs" class="form-control">
+      <option value="Node">Node</option>
+      <option value="List">List</option>
+    </select>
+</div>

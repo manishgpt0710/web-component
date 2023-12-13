@@ -1,0 +1,50 @@
+<div class="input-group">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default">
+        Value: {{ getParentName(field.objectName) }}
+      </button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a (click)="changeObjectName('')">None</a></li>
+        <li><a (click)="changeObjectName('Constant')">Constant</a></li>
+        <li><a (click)="changeObjectName('ExtendedData.Candidate')">Candidate</a></li>
+        <li><a (click)="changeObjectName('ExtendedData.Candidate.IA_Job')">Job</a></li>
+        <li><a (click)="changeObjectName('CustomVariables')">Custom Variables</a></li>
+        <li><a (click)="changeObjectName('ExtendedData')">Extended Data Object</a></li>
+        <li><a (click)="changeObjectName('ExtendedData.Candidate.Application.MyResume')">Resume</a></li>
+        <li><a (click)="changeObjectName('ExtendedData.Candidate.Application.MXResume')">Extended Resume'</a></li>
+        <li><a
+            (click)="changeObjectName(field.objectName)">{{ getNewParentName(field.objectName) }}</a>
+        </li>
+      </ul>
+    </div>
+    <select [disabled]="readonly" [(ngModel)]="field.source" (ngModelChange)="sourceFieldPickerChange(field)"
+      class="form-control" *ngIf="
+        field.objectName !== undefined &&
+        field.objectName !== 'Constant' &&
+        field.objectName !== 'CustomVariables' &&
+        field.objectName !== 'ExtendedData'
+        ">
+      <option *ngFor="let option of field" value="option.source">
+        <div *ngIf="option.objectName == field.objectName">
+          {{ option.name }}
+        </div>
+      </option>
+    </select>
+    <input type="text" [readonly]="readonly" [(ngModel)]="field.defaultValue" class="form-control"
+      *ngIf="field.objectName === 'Constant'" />
+    <input type="text" [readonly]="readonly" [(ngModel)]="field.source" class="form-control"
+      *ngIf="field.objectName === 'CustomVariables' || field.objectName === 'ExtendedData'" />
+  </div>
+
+  <div *ngFor="let parameter of field.parameters">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default">{{ parameter.label }}</button>
+      </div>
+      <input type="text" class="form-control" aria-label="..." [(ngModel)]="parameter.value" />
+    </div>
+</div>
